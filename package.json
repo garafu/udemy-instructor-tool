@@ -8,7 +8,7 @@
   },
   "author": "Akinari Tsugo",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^9.0.3"
   }
 }

@@ -8,7 +8,7 @@
 
   <!-- Bootstrap core CSS -->
   <link href="./third_party/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./third_party/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
+  <link href="./third_party/fontawesome/5.11.2/css/all.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <style>
@@ -21,6 +21,11 @@
       user-select: none;
     }
 
+    .activity-icon {
+      font-size: 2em;
+    }
+
+
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -31,7 +36,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <!-- <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
       data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,16 +48,39 @@
         <a class="nav-link" href="#">Sign out</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 
   <div class="container-fluid">
     <div class="row">
-      <nav id="sideMenu" class="col-md-1 col-lg-1 d-md-block bg-light sidebar collapse">
-        <i class="fas fa-users"></i>
+      <nav id="activitybar" class="col-md-1 col-lg-1 d-md-block bg-light p-0 sidebar collapse border-right">
+        <ul class="nav flex-column text-center">
+          <li class="nav-item activity-icon bg-secondary">
+            <a class="nav-link text-light disabled border-left" href="#">
+              <i class="fas fa-users"></i>
+            </a>
+          </li>
+          <li class="nav-item activity-icon">
+            <a class="nav-link text-secondary" href="#">
+              <i class="fas fa-comment-dots"></i>
+            </a>
+          </li>
+        </ul>
       </nav>
 
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="sidebar-sticky pt-3">
+      <nav id="sidebar" class="col-md-3 col-lg-3 d-md-block bg-light sidebar collapse">
+        <div class="sidebar-sticky">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>受講生</span>
+          </h6>
+          <div class="input-group my-3">
+            <input type="text" class="form-control" placeholder="student name"" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="#">
@@ -127,7 +155,7 @@
         </div>
       </nav>
 
-      <main role="main" class="col-md-8 ml-sm-auto col-lg-9 px-md-4">
+      <main role="main" class="col-md-8 ml-sm-auto col-lg-8 px-md-4">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>

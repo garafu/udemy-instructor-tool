@@ -10,7 +10,6 @@ var initialize = function () {
   });
 
   win.loadFile("index.html");
-  win.webContents.openDevTools();
 };
 
 app.whenReady().then(initialize);
