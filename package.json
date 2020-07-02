@@ -1,0 +1,14 @@
+{
+  "name": "udemy-instructor-tools",
+  "version": "0.0.1",
+  "description": "Udemy Instructor's communication support tool.",
+  "main": "./src",
+  "scripts": {
+    "start": "electron ./src"
+  },
+  "author": "Akinari Tsugo",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^9.0.3"
+  }
+}
