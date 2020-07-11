@@ -30,7 +30,7 @@ var initialize = async function () {
   // [設定]-[売り上げデータ]-[読み取り]
   ipcMain.handle("cfgPurchaseCsvLoad", async (event, directory) => {
     // 売上データ読み込み
-    await require("./controllers/purchase-load")(directory)
+    return await require("./controllers/purchase-load")(directory)
   });
 
   // メインウィンドウ起動

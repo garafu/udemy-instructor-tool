@@ -14,7 +14,10 @@ var btnConfigPurchaseFolderOpen_onclick = async function (event) {
 };
 
 var btnConfigPurchaseLoad_onclick = async function (event) {
-  ipcRenderer.invoke("cfgPurchaseCsvLoad", $("#txtSourceDirectory").val());
+  $("#btnConfigPurchaseLoad").addClass("disabled");
+  await ipcRenderer.invoke("cfgPurchaseCsvLoad", $("#txtSourceDirectory").val());
+  $("#btnConfigPurchaseLoad").removeClass("disabled");
+  window.alert("Completed !");
 };
 
 $(window).on("load", (event) => {
