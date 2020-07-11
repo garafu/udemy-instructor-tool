@@ -35,9 +35,14 @@ var initialize = async function () {
 
   // [受講生]-[検索]
   ipcMain.handle("stdSearch", async (event, name) => {
-    // 受講生検索
-    var list = await require("./controllers/students-search")(name);
-    return list;
+    // 受講生一覧検索
+    return await require("./controllers/students-search")(name);
+  });
+
+  // [受講生]-[名前]
+  ipcMain.handle("stdDetail", async (event, name) => {
+    // 受講生詳細検索
+    return await require("./controllers/students-detail")(name);
   });
 
   // メインウィンドウ起動
