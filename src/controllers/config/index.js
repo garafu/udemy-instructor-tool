@@ -1,7 +1,7 @@
 var path = require("path");
 var { File, StreamWriter } = require("at-framework/io");
 const CONFIG_FILE_NAME = "config.json";
-const CONFIG_FILE_PATH = path.join(process.env.NODE_PATH || __dirname, CONFIG_FILE_NAME);
+const CONFIG_FILE_PATH = path.join(process.env.APP_ROOT_DIR || __dirname, CONFIG_FILE_NAME);
 var config = undefined;
 
 var initialize = async function () {

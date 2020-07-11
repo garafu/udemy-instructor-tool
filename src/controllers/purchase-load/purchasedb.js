@@ -4,7 +4,7 @@ var SQL = require("./sql.js");
 var sqlite3 = require("sqlite3").verbose();
 
 var PurchaseDb = function () {
-  this.db = new sqlite3.Database(path.join(process.env.NODE_PATH || __dirname, FILE_PATH));
+  this.db = new sqlite3.Database(path.join(process.env.APP_ROOT_DIR || __dirname, FILE_PATH));
 };
 
 PurchaseDb.prototype.save = function (data) {

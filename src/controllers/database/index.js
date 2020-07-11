@@ -5,7 +5,7 @@ var sqlite3 = require("sqlite3").verbose();
 var { File, Directory } = require("at-framework/io");
 var promisecallback = require("at-framework/async/promisecallback");
 var SQL = require("@garafu/mysql-fileloader").loadSync(path.join(__dirname, "./sql"));
-var DATABASE_FILE_PATH = path.join(process.env.NODE_PATH || __dirname, config.DATABASE.FILE_PATH);
+var DATABASE_FILE_PATH = path.join(process.env.APP_ROOT_DIR || __dirname, config.DATABASE.FILE_PATH);
 /**
  * データベースを作成
  * @param {sqlite3.Database} db 

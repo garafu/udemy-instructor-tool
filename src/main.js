@@ -1,7 +1,7 @@
 const path = require("path");
 const { File, StreamWriter } = require("at-framework/io");
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
-process.env.NODE_PATH = __dirname;
+process.env.APP_ROOT_DIR = __dirname;
 
 /**
  * 初期化処理
@@ -30,7 +30,14 @@ var initialize = async function () {
   // [設定]-[売り上げデータ]-[読み取り]
   ipcMain.handle("cfgPurchaseCsvLoad", async (event, directory) => {
     // 売上データ読み込み
-    return await require("./controllers/purchase-load")(directory)
+    return await require("./controllers/purchase-load")(directory);
+  });
+
+  // [受講生]-[検索]
+  ipcMain.handle("stdSearch", async (event, name) => {
+    // 受講生検索
+    var list = await require("./controllers/students-search")(name);
+    return list;
   });
 
   // メインウィンドウ起動
