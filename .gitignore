@@ -1,3 +1,7 @@
+_work/
 .DS_Store
 node_modules/
 *lock*
+*.log
+*.csv
+*.db
