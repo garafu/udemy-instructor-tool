@@ -1,19 +1,41 @@
 {
-  "name": "udemy-instructor-tools",
-  "version": "0.0.1",
-  "description": "Udemy Instructor's communication support tool.",
+  "name": "sample_sqlite3",
+  "version": "1.0.0",
+  "description": "",
   "main": "./src",
-  "scripts": {
-    "start": "electron ./src"
-  },
-  "author": "Akinari Tsugo",
+  "keywords": [],
+  "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "electron": "^9.0.3"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "udemy.instructor.tool",
+    "directories": {
+      "app": "./src"
+    },
+    "win": {
+      "target": {
+        "target": "zip",
+        "arch": [
+          "x64"
+        ]
+      }
+    },
+    "mac": {
+      "target": "dmg"
+    }
   },
   "dependencies": {
-    "@garafu/mysql-fileloader": "^0.0.1",
-    "at-framework": "^0.0.7",
+    "@garafu/mysql-fileloader": "0.0.1",
+    "at-framework": "0.0.8",
+    "moment-timezone": "^0.5.31",
     "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "electron": "^9.1.0",
+    "electron-builder": "^22.7.0",
+    "electron-rebuild": "^1.11.0"
   }
 }

@@ -1,14 +1,14 @@
-CREATE TABLE students (
+CREATE TABLE IF NOT EXISTS students (
   id integer primary key autoincrement,
   name text
 );
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
   id integer primary key autoincrement,
   name text
 );
 
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
   id integer primary key autoincrement,
   transaction_id integer,
   user_name text,
@@ -22,4 +22,4 @@ CREATE TABLE transactions (
   paid_currency text,
   instructor_share real
 );
-CREATE INDEX idx_transactions_01 ON transactions (user_name);
+CREATE INDEX IF NOT EXISTS idx_transactions_01 ON transactions (user_name);

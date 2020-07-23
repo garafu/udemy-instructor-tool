@@ -1,8 +1,0 @@
-{
-  "DATABASE": {
-    "FILE_PATH": "./database/my.db"
-  },
-  "SOURCE": {
-    "PURCHASE_DIR": "./source/purchases"
-  }
-}

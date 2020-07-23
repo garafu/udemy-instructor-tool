@@ -2,17 +2,17 @@ var { EventEmitter } = require("events");
 var util = require("util");
 var moment = require("moment-timezone");
 
-var PurchaseTransform = function (database) {
-  this.add(database);
+var PurchaseTransform = function (next) {
+  this.add(next);
 };
 util.inherits(PurchaseTransform, EventEmitter);
 
-PurchaseTransform.prototype.add = function (database) {
+PurchaseTransform.prototype.add = function (next) {
   this.on("readrow", (data) => {
-    database.onReadRow(data);
+    next.onReadRow(data);
   });
   this.on("closed", () => {
-    database.onClosed();
+    next.onClosed();
   });
 };
 

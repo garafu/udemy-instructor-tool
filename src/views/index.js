@@ -1,3 +1,12 @@
+// const sqlite3 = require("sqlite3").verbose();
+// var db = new sqlite3.Database("sample.db", (err)=>{
+
+// });
+// db.serialize(() => {
+//   // db.run("insert into users ('name', 'email', 'age') values (?, ?, ?)", ["tanaka", "hoge@hoge.com", 10]);
+//   db.run("insert into students (name) values ('tanaka')");
+//   db.close();
+// });
 const { remote, ipcRenderer } = require("electron");
 
 // [設定]

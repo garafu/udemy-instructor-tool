@@ -1,18 +1,14 @@
-var path = require("path");
-var { FILE_PATH } = require("./config").DATABASE;
-var SQL = require("./sql.js");
-var sqlite3 = require("sqlite3").verbose();
+var { Database } = require("../../database");
 
 var PurchaseDb = function () {
-  this.db = new sqlite3.Database(path.join(process.env.APP_ROOT_DIR || __dirname, FILE_PATH));
-};
-
-PurchaseDb.prototype.save = function (data) {
-  console.log(data);
+  this.db = new Database();
+  this.tasks = [];
+  this.db.open();
 };
 
 PurchaseDb.prototype.onReadRow = function (data) {
-  this.db.run(SQL["INSERT_TRANSACTION"], {
+  this.tasks[this.tasks.length] = this.db.executeNonQuery(
+    "INSERT_TRANSACTION", {
     $transaction_id: data.transaction_id,
     $user_name: data.user_name,
     $course_name: data.course_name,
@@ -28,7 +24,9 @@ PurchaseDb.prototype.onReadRow = function (data) {
 };
 
 PurchaseDb.prototype.onClosed = function () {
-  this.db.close();
+  Promise.all(this.tasks).then(() => {
+    this.db.close();
+  });
 };
 
 module.exports = PurchaseDb;

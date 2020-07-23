@@ -1,4 +1,3 @@
-var { PURCHASE_DIR } = require("./config").SOURCE;
 var { CsvReader } = require("at-framework/io");
 var promisecallback = require("at-framework/async/promisecallback");
 var path = require("path");
@@ -80,11 +79,10 @@ var walk = function (root, callback) {
   return promisecallback(new Promise(async (resolve, reject) => {
     var data = [], list, fullpath, stat, tmppaths;
     try {
-      list = await fs.readdir(root);
+      list = await fs.readdir(root, { withFileTypes: true });
       for (let item of list) {
-        fullpath = path.join(root, item);
-        stat = await fs.stat(fullpath);
-        if (stat.isDirectory()) {
+        fullpath = path.join(root, item.name);
+        if (item.isDirectory()) {
           // Is Directory
           tmppaths = await walk(fullpath, callback);
           data = data.concat(tmppaths);
@@ -102,30 +100,26 @@ var walk = function (root, callback) {
   }), callback, this);
 };
 
-var PurchaseCsv = function (database) {
-  this.add(database);
+var PurchaseCsv = function (next) {
+  this.add(next);
 };
 util.inherits(PurchaseCsv, EventEmitter);
 
-PurchaseCsv.prototype.add = function (database) {
-  this.database = database;
+PurchaseCsv.prototype.add = function (next) {
+  this.next = next;
   this.on("readrow", (data) => {
-    this.database.onReadRow(data);
+    this.next.onReadRow(data);
   });
   this.on("closed", () => {
-    this.database.onClosed();
+    this.next.onClosed();
   });
-};
-
-PurchaseCsv.prototype.notify = function (data) {
-  this.database.save(data);
 };
 
 PurchaseCsv.prototype.execute = async function (directory) {
   var root, filepaths;
 
   // 指定したフォルダ以下にあるCSVファイルの絶対パスを検索
-  root = directory ? directory : path.join(__dirname, PURCHASE_DIR);
+  root = directory ? directory : __dirname;
   filepaths = await walk(root);
 
   // 見つかったCSVファイルを読み込み
@@ -151,15 +145,6 @@ PurchaseCsv.prototype.load = function (filepath) {
     this.emit("closed");
   });
   csv.readRow(() => { });
-  // csv.readRow((row) => {
-  //   var format, data;
-  //   format = getFormatter(row);
-  //   if (!format) {
-  //     return;
-  //   }
-  //   data = format(row);
-  //   this.notify(data);
-  // });
 };
 
 module.exports = PurchaseCsv

@@ -1,13 +1,8 @@
-const path = require("path");
-const { File, StreamWriter } = require("at-framework/io");
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 process.env.APP_ROOT_DIR = __dirname;
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const db = require("./database");
 
-/**
- * 初期化処理
- */
-var initialize = async function () {
-  // chromiumの初期化
+var initialize = function () {
   var win = new BrowserWindow({
     width: 1024,
     height: 768,
@@ -16,11 +11,8 @@ var initialize = async function () {
     }
   });
 
-  // 設定ファイルの初期化/読み込み
-  await (require("./controllers/config").initialize)();
-
-  // DBファイル初期化
-  await (require("./controllers/database"))();
+  // DB初期化
+  db.initialize();
 
   // [設定]-[売り上げデータ]-[フォルダを開く]
   ipcMain.handle("cfgPurchaseFolderOpen", () => {
@@ -45,7 +37,6 @@ var initialize = async function () {
     return await require("./controllers/students-detail")(name);
   });
 
-  // メインウィンドウ起動
   win.loadFile("./views/index.html");
 };
 
