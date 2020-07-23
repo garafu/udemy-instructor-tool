@@ -1,14 +1,14 @@
 {
-  "name": "sample_sqlite3",
-  "version": "1.0.0",
-  "description": "sample",
+  "name": "udemy-instructor-tool",
+  "version": "0.0.1",
+  "description": "Udemy instructor tool",
   "main": "main.js",
   "keywords": [],
-  "author": "",
+  "author": "Akinari Tsugo",
   "license": "MIT",
   "dependencies": {
-    "@garafu/mysql-fileloader": "0.0.1",
     "at-framework": "0.0.8",
+    "moment-timezone": "^0.5.31",
     "sqlite3": "^5.0.0"
   }
 }

@@ -1,10 +1,10 @@
 {
-  "name": "sample_sqlite3",
-  "version": "1.0.0",
+  "name": "udemy-instructor-tool",
+  "version": "0.0.1",
   "description": "",
   "main": "./src",
   "keywords": [],
-  "author": "",
+  "author": "Akinari Tsugo",
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,7 +28,6 @@
     }
   },
   "dependencies": {
-    "@garafu/mysql-fileloader": "0.0.1",
     "at-framework": "0.0.8",
     "moment-timezone": "^0.5.31",
     "sqlite3": "^5.0.0"
