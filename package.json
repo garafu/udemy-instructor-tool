@@ -1,6 +1,6 @@
 {
   "name": "udemy-instructor-tool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "./src",
   "keywords": [],
@@ -16,8 +16,9 @@
       "app": "./src"
     },
     "win": {
+      "icon": "./src/icon/icon.png",
       "target": {
-        "target": "zip",
+        "target": "dir",
         "arch": [
           "x64"
         ]
