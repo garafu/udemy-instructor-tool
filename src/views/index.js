@@ -1,12 +1,3 @@
-// const sqlite3 = require("sqlite3").verbose();
-// var db = new sqlite3.Database("sample.db", (err)=>{
-
-// });
-// db.serialize(() => {
-//   // db.run("insert into users ('name', 'email', 'age') values (?, ?, ?)", ["tanaka", "hoge@hoge.com", 10]);
-//   db.run("insert into students (name) values ('tanaka')");
-//   db.close();
-// });
 const { remote, ipcRenderer } = require("electron");
 
 // [設定]
@@ -26,16 +17,13 @@ var btnConfigPurchaseFolderOpen_onclick = async function (event) {
 
 // [設定]-[売上データ]-[読み込み]
 var btnConfigPurchaseLoad_onclick = async function (event) {
-  // $("#btnConfigPurchaseLoad").addClass("disabled");
-  // await ipcRenderer.invoke("cfgPurchaseCsvLoad", $("#txtSourceDirectory").val());
-  // $("#btnConfigPurchaseLoad").removeClass("disabled");
-  // window.alert("Completed !");
+  // アラート表示をリセット
   $("#msgError").empty().css({ display: "none" });
   $("#msgSuccess").empty().css({ display: "none" });
 
+  // ディレクトリ名が指定してあるか確認
   var directory = $("#txtSourceDirectory").val();
   if (!directory) {
-    // window.alert("ディレクトリを指定してください");
     window.setTimeout(() => {
       $("#msgError")
         .css({ display: "block" })
@@ -44,11 +32,10 @@ var btnConfigPurchaseLoad_onclick = async function (event) {
     return;
   }
 
-  // $("#btnConfigPurchaseLoad").addClass("disabled");
+  // 読み込み処理の開始
   $("#btnConfigPurchaseLoad").prop("disabled", true);
   $("#progressArea").css({ display: "block" });
   $("#progressMessage").empty();
-  // ipcRenderer.send("cfgPurchaseCsvLoad", directory);
   ipcRenderer.invoke("cfgPurchaseCsvLoad", directory);
 };
 
@@ -59,12 +46,10 @@ ipcRenderer.on("cfgPurchaseCsvLoadProgress", (event, data) => {
 
 ipcRenderer.on("cfgPurchaseCsvLoadCompleted", (event, message) => {
   $("#progressArea").css({ display: "none" });
-  // $("#btnConfigPurchaseLoad").removeClass("disabled").focus();
   $("#btnConfigPurchaseLoad").prop("disabled", false);
   $("#msgSuccess")
     .css({ display: "block" })
     .append(document.createTextNode("読み込み完了！"));
-  // window.alert("読み込み完了！");
 });
 
 // [受講生]-[検索]

@@ -6,6 +6,11 @@ var PurchaseLoader = function () {
 };
 util.inherits(PurchaseLoader, EventEmitter);
 
+/**
+ * 指定されたディレクトリ配下に存在する売り上げCSVファイルをSqlite3に読み込み
+ * @param {string}} directory 
+ * @param {function()} callback 
+ */
 PurchaseLoader.prototype.load = async function (directory, callback) {
   var db = new (require("./purchasedb"))();
   var transform = new (require("./purchasetransform"))(db);
