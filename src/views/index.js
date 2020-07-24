@@ -26,11 +26,34 @@ var btnConfigPurchaseFolderOpen_onclick = async function (event) {
 
 // [設定]-[売上データ]-[読み込み]
 var btnConfigPurchaseLoad_onclick = async function (event) {
-  $("#btnConfigPurchaseLoad").addClass("disabled");
-  await ipcRenderer.invoke("cfgPurchaseCsvLoad", $("#txtSourceDirectory").val());
-  $("#btnConfigPurchaseLoad").removeClass("disabled");
-  window.alert("Completed !");
+  // $("#btnConfigPurchaseLoad").addClass("disabled");
+  // await ipcRenderer.invoke("cfgPurchaseCsvLoad", $("#txtSourceDirectory").val());
+  // $("#btnConfigPurchaseLoad").removeClass("disabled");
+  // window.alert("Completed !");
+  var directory = $("#txtSourceDirectory").val();
+  if (!directory) {
+    window.alert("ディレクトリを指定してください");
+    return;
+  }
+
+  // $("#btnConfigPurchaseLoad").addClass("disabled");
+  $("#btnConfigPurchaseLoad").prop("disabled", true);
+  $("#progressArea").css({ display: "block" });
+  $("#progressMessage").empty();
+  ipcRenderer.send("cfgPurchaseCsvLoad", directory);
 };
+
+ipcRenderer.on("cfgPurchaseCsvLoadProgress", (event, data) => {
+  var message = `[${data.date}] ${data.type}: ${data.user_name}`;
+  $("#progressMessage").empty().append(document.createTextNode(message));
+});
+
+ipcRenderer.on("cfgPurchaseCsvLoadCompleted", (event, message) => {
+  $("#progressArea").css({ display: "none" });
+  // $("#btnConfigPurchaseLoad").removeClass("disabled").focus();
+  $("#btnConfigPurchaseLoad").prop("disabled", false);
+  window.alert("読み込み完了！");
+});
 
 // [受講生]-[検索]
 var btnStudentsSearch_onclick = async function (event) {

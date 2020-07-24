@@ -113,10 +113,13 @@ PurchaseCsv.prototype.add = function (next) {
   this.on("closed", () => {
     this.next.onClosed();
   });
+  this.on("completed", (count) => {
+    this.next.onCompleted(count);
+  });
 };
 
 PurchaseCsv.prototype.execute = async function (directory) {
-  var root, filepaths;
+  var root, filepaths, count = 0;
 
   // 指定したフォルダ以下にあるCSVファイルの絶対パスを検索
   root = directory ? directory : __dirname;
@@ -126,6 +129,14 @@ PurchaseCsv.prototype.execute = async function (directory) {
   for (let filepath of filepaths) {
     this.load(filepath);
   }
+
+  // すべて読み込み終わったら completed イベント発生
+  this.on("closed", () => {
+    if (++count < filepaths.length) {
+      return;
+    }
+    this.emit("completed", filepaths.length);
+  });
 };
 
 PurchaseCsv.prototype.load = function (filepath) {

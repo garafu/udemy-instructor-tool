@@ -14,16 +14,23 @@ PurchaseTransform.prototype.add = function (next) {
   this.on("closed", () => {
     next.onClosed();
   });
+  this.on("completed", (count) => {
+    next.onCompleted(count);
+  })
 };
 
 PurchaseTransform.prototype.onReadRow = function (data) {
-  data.date = moment.utc(data.date,["MMM DD 'YY", "YYYY-MM-DD HH:mm:ss ZZ"]).tz("Japan").format();
+  data.date = moment.utc(data.date, ["MMM DD 'YY", "YYYY-MM-DD HH:mm:ss ZZ"]).tz("Japan").format();
 
   this.emit("readrow", data);
 };
 
 PurchaseTransform.prototype.onClosed = function () {
   this.emit("closed");
+};
+
+PurchaseTransform.prototype.onCompleted = function (count) {
+  this.emit("completed", count);
 };
 
 module.exports = PurchaseTransform;

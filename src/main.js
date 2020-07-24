@@ -20,9 +20,45 @@ var initialize = function () {
   });
 
   // [設定]-[売り上げデータ]-[読み取り]
-  ipcMain.handle("cfgPurchaseCsvLoad", async (event, directory) => {
-    // 売上データ読み込み
-    return await require("./controllers/purchase-load")(directory);
+  // ipcMain.handle("cfgPurchaseCsvLoad", async (event, directory) => {
+  //   // 売上データ読み込み
+  //   var loader = new (require("./controllers/purchase-load"))();
+  //   loader.on("readrow", (data)=>{ win.webContents.send("cfgPurchaseCsvLoadProgress", data); });
+  //   // loader.on("closed", ()=>{});
+  //   return await loader.load(directory);
+  //   // return await require("./controllers/purchase-load")(directory);
+  // });
+  ipcMain.on("cfgPurchaseCsvLoad", (event, directory) => {
+    // global.setTimeout(() => {
+    // (async () => {
+      var PurchaseLoader = require("./controllers/purchase-load");
+      var loader = new PurchaseLoader();
+      loader.on("readrow", (data) => {
+        // win.webContents.send("cfgPurchaseCsvLoadProgress", data);
+        event.reply("cfgPurchaseCsvLoadProgress", data);
+      });
+      loader.on("completed", (count) => {
+        // win.webContents.send("cfgPurchaseCsvLoadCompleted");
+        event.reply("cfgPurchaseCsvLoadCompleted", count);
+      });
+      loader.load(directory);
+    // })();
+    // }, 0);
+    // const { fork } = require("child_process");
+    // const path = require("path");
+    // var child = fork(path.join(__dirname, "./controllers/purchase-load/child.js"), [directory], { execArgv: [] });
+    // child.on("message", (message) => {
+    //   win.webContents.send("cfgPurchaseCsvLoadProgress", message);
+    // });
+    // child.on("error", (error) => {
+    //   console.log(error);
+    // });
+    // child.on("exit", (code, signal) => {
+    //   console.log(code);
+    // });
+    // child.on("close", (code) => {
+    //   win.webContents.send("cfgPurchaseCsvLoadCompleted");
+    // });
   });
 
   // [受講生]-[検索]
