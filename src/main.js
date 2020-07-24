@@ -28,18 +28,18 @@ var initialize = function () {
   //   return await loader.load(directory);
   //   // return await require("./controllers/purchase-load")(directory);
   // });
-  ipcMain.on("cfgPurchaseCsvLoad", (event, directory) => {
+  ipcMain.handle("cfgPurchaseCsvLoad", (event, directory) => {
     // global.setTimeout(() => {
     // (async () => {
       var PurchaseLoader = require("./controllers/purchase-load");
       var loader = new PurchaseLoader();
       loader.on("readrow", (data) => {
-        // win.webContents.send("cfgPurchaseCsvLoadProgress", data);
-        event.reply("cfgPurchaseCsvLoadProgress", data);
+        win.webContents.send("cfgPurchaseCsvLoadProgress", data);
+        // event.reply("cfgPurchaseCsvLoadProgress", data);
       });
       loader.on("completed", (count) => {
-        // win.webContents.send("cfgPurchaseCsvLoadCompleted");
-        event.reply("cfgPurchaseCsvLoadCompleted", count);
+        win.webContents.send("cfgPurchaseCsvLoadCompleted");
+        // event.reply("cfgPurchaseCsvLoadCompleted", count);
       });
       loader.load(directory);
     // })();
